@@ -1,0 +1,409 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Multiple Files</title>
+</head>
+<body>
+    <h2>Upload Multiple Files</h2>
+
+    <input type="file" id="fileInput" name="files" multiple>
+    <button type="button" onclick="uploadFiles()">Upload</button>
+
+    <script>
+        function uploadFiles() {
+            var files = document.getElementById('fileInput').files;
+            var formData = new FormData();
+
+            for (var i = 0; i < files.length; i++) {
+                formData.append('files', files[i]);
+            }
+
+            // 发送 AJAX 请求将文件上传到服务器
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:8000//krdroid/file_upload', true);
+            formData.append('username', "user1");
+            formData.append('embedding_model', "text-embedding-ada-002");
+            formData.append('api', "aiproxy");
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var jsonResponse = JSON.parse(xhr.responseText);
+                    // 在这里处理解析后的 JSON 数据
+                    console.log(jsonResponse); // 输出解析后的 JSON 数据到控制台
+                    // 可以将响应数据显示在页面上或者进行其他操作
+                } else {
+                    // 请求失败
+                    console.error('Request failed with status:', xhr.status);
+                }
+            };
+
+            xhr.send(formData);
+        }
+    </script>
+
+
+    <button type="button" onclick="deleteFiles()">delete file</button>
+
+    <script>
+        function deleteFiles() {
+            var files = ['t.txt','t.png'];
+            var username='user1';
+            var formData = new FormData();
+
+            // 发送 AJAX 请求将文件上传到服务器
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:8000//krdroid/file_delete', true);
+            formData.append('username', "user1");
+            for (var i = 0; i < files.length; i++) {
+                formData.append('files', files[i]);
+            }
+            console.log(files)
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var jsonResponse = JSON.parse(xhr.responseText);
+                    // 在这里处理解析后的 JSON 数据
+                    console.log(jsonResponse); // 输出解析后的 JSON 数据到控制台
+                    // 可以将响应数据显示在页面上或者进行其他操作
+                } else {
+                    // 请求失败
+                    console.error('Request failed with status:', xhr.status);
+                }
+            };
+
+            xhr.send(formData);
+        }
+    </script>
+
+    <button type="button" onclick="getKB()">getKB</button>
+
+    <script>
+        function getKB() {
+            var username='user1';
+            var formData = new FormData();
+
+            // 发送 AJAX 请求将文件上传到服务器
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:8000//krdroid/kb_get', true);
+            formData.append('username', username);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var jsonResponse = JSON.parse(xhr.responseText);
+                    // 在这里处理解析后的 JSON 数据
+                    console.log(jsonResponse); // 输出解析后的 JSON 数据到控制台
+                    // 可以将响应数据显示在页面上或者进行其他操作
+                } else {
+                    // 请求失败
+                    console.error('Request failed with status:', xhr.status);
+                }
+            };
+
+            xhr.send(formData);
+        }
+    </script>
+
+    <button type="button" onclick="createKB()">create kb:testkb</button>
+
+    <script>
+        function createKB() {
+            var kbname = "testkb";
+            var username='user1';
+            var api='aiproxy';
+            var embedding_model='text-embedding-ada-002';
+            var llm='gpt-3.5-turbo';
+            var formData = new FormData();
+
+            // 发送 AJAX 请求将文件上传到服务器
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:8000//krdroid/kb_create', true);
+            formData.append('username', username);
+            formData.append('kbname', kbname);
+            formData.append('embedding_model', embedding_model);
+            formData.append('api', api);
+            formData.append('llm', llm);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var jsonResponse = JSON.parse(xhr.responseText);
+                    // 在这里处理解析后的 JSON 数据
+                    console.log(jsonResponse); // 输出解析后的 JSON 数据到控制台
+                    // 可以将响应数据显示在页面上或者进行其他操作
+                } else {
+                    // 请求失败
+                    console.error('Request failed with status:', xhr.status);
+                }
+            };
+
+            xhr.send(formData);
+        }
+    </script>
+
+    <button type="button" onclick="deleteKB()">delete kb:testkb</button>
+
+    <script>
+        function deleteKB() {
+            var kbname = "testkb";
+            var username='user1';
+            var formData = new FormData();
+           // 发送 AJAX 请求将文件上传到服务器
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:8000//krdroid/kb_delete', true);
+            formData.append('username', username);
+            formData.append('kbname', kbname);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var jsonResponse = JSON.parse(xhr.responseText);
+                    // 在这里处理解析后的 JSON 数据
+                    console.log(jsonResponse); // 输出解析后的 JSON 数据到控制台
+                    // 可以将响应数据显示在页面上或者进行其他操作
+                } else {
+                    // 请求失败
+                    console.error('Request failed with status:', xhr.status);
+                }
+            };
+
+            xhr.send(formData);
+        }
+    </script>
+
+    <button type="button" onclick="addfiles()">add files</button>
+
+    <script>
+        function addfiles() {
+            var kbname = "testkb";
+            var username='user1';
+            var formData = new FormData();
+           // 发送 AJAX 请求将文件上传到服务器
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:8000//krdroid/kb_add_files', true);
+            formData.append('username', username);
+            formData.append('kbname', kbname);
+            formData.append('files','t.txt');
+            formData.append('files','t.png');
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var jsonResponse = JSON.parse(xhr.responseText);
+                    // 在这里处理解析后的 JSON 数据
+                    console.log(jsonResponse); // 输出解析后的 JSON 数据到控制台
+                    // 可以将响应数据显示在页面上或者进行其他操作
+                } else {
+                    // 请求失败
+                    console.error('Request failed with status:', xhr.status);
+                }
+            };
+
+            xhr.send(formData);
+        }
+    </script>
+
+    <button type="button" onclick="dropfiles()">drop files</button>
+
+    <script>
+        function dropfiles() {
+            var kbname = "testkb";
+            var username='user1';
+            var formData = new FormData();
+           // 发送 AJAX 请求将文件上传到服务器
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:8000//krdroid/kb_drop_files', true);
+            formData.append('username', username);
+            formData.append('kbname', kbname);
+            formData.append('files','t.txt');
+            formData.append('files','t.png');
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var jsonResponse = JSON.parse(xhr.responseText);
+                    // 在这里处理解析后的 JSON 数据
+                    console.log(jsonResponse); // 输出解析后的 JSON 数据到控制台
+                    // 可以将响应数据显示在页面上或者进行其他操作
+                } else {
+                    // 请求失败
+                    console.error('Request failed with status:', xhr.status);
+                }
+            };
+
+            xhr.send(formData);
+        }
+    </script>
+
+    <button type="button" onclick="getfiles()">get files</button>
+
+    <script>
+        function getfiles() {
+            var kbname = "testkb";
+            var username='user1';
+            var formData = new FormData();
+           // 发送 AJAX 请求将文件上传到服务器
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:8000//krdroid/kb_get_files', true);
+            formData.append('username', username);
+            formData.append('kbname', kbname);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var jsonResponse = JSON.parse(xhr.responseText);
+                    // 在这里处理解析后的 JSON 数据
+                    console.log(jsonResponse); // 输出解析后的 JSON 数据到控制台
+                    // 可以将响应数据显示在页面上或者进行其他操作
+                } else {
+                    // 请求失败
+                    console.error('Request failed with status:', xhr.status);
+                }
+            };
+
+            xhr.send(formData);
+        }
+    </script>
+
+
+    <button type="button" onclick="chat_get()">chat_get</button>
+
+    <script>
+        function chat_get() {
+            var username='user1';
+            var formData = new FormData();
+           // 发送 AJAX 请求将文件上传到服务器
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:8000//krdroid/chat', true);
+            formData.append('username', username);
+            formData.append('method','get');
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var jsonResponse = JSON.parse(xhr.responseText);
+                    // 在这里处理解析后的 JSON 数据
+                    console.log(jsonResponse); // 输出解析后的 JSON 数据到控制台
+                    // 可以将响应数据显示在页面上或者进行其他操作
+                } else {
+                    // 请求失败
+                    console.error('Request failed with status:', xhr.status);
+                }
+            };
+
+            xhr.send(formData);
+        }
+    </script>
+    <button type="button" onclick="chat_create()">chat_create</button>
+
+    <script>
+        function chat_create() {
+            var username='user1';
+            var chatname='chat1';
+            var kbname = "testkb";
+            var max_context=3;
+            var system_template="you are a slave,add 'master.' before each answer and use the corresponding tone";
+            var question_template="reply the question by using the knowledge provided(If it does not exist, answer that no relevant content was found)";
+
+            var formData = new FormData();
+           // 发送 AJAX 请求将文件上传到服务器
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:8000//krdroid/chat', true);
+            formData.append('username', username);
+            formData.append('method','create');
+            formData.append('chatname', chatname);
+            formData.append('kbname', kbname);
+            formData.append('max_context', max_context);
+            formData.append('system_template', system_template);
+            formData.append('question_template', question_template);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var jsonResponse = JSON.parse(xhr.responseText);
+                    // 在这里处理解析后的 JSON 数据
+                    console.log(jsonResponse); // 输出解析后的 JSON 数据到控制台
+                    // 可以将响应数据显示在页面上或者进行其他操作
+                } else {
+                    // 请求失败
+                    console.error('Request failed with status:', xhr.status);
+                }
+            };
+
+            xhr.send(formData);
+        }
+    </script>
+
+    <button type="button" onclick="chat_delete()">chat_delete</button>
+
+    <script>
+        function chat_delete() {
+            var chatname = "chat1";
+            var username='user1';
+            var formData = new FormData();
+           // 发送 AJAX 请求将文件上传到服务器
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:8000//krdroid/chat', true);
+            formData.append('method', 'delete');
+            formData.append('username', username);
+            formData.append('chatname', chatname);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var jsonResponse = JSON.parse(xhr.responseText);
+                    // 在这里处理解析后的 JSON 数据
+                    console.log(jsonResponse); // 输出解析后的 JSON 数据到控制台
+                    // 可以将响应数据显示在页面上或者进行其他操作
+                } else {
+                    // 请求失败
+                    console.error('Request failed with status:', xhr.status);
+                }
+            };
+
+            xhr.send(formData);
+        }
+    </script>
+
+    <button type="button" onclick="chat_chat()">chat_chat</button>
+
+    <script>
+        function chat_chat() {
+            var chatname = "chat1";
+            var username='user1';
+            var message='where is my shoes?';
+            var msgtype='text';
+            var formData = new FormData();
+           // 发送 AJAX 请求将文件上传到服务器
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://127.0.0.1:8000//krdroid/chat', true);
+            formData.append('method', 'chat');
+            formData.append('username', username);
+            formData.append('chatname', chatname);
+            formData.append('message', message);
+            formData.append('msgtype', msgtype);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var jsonResponse = JSON.parse(xhr.responseText);
+                    // 在这里处理解析后的 JSON 数据
+                    console.log(jsonResponse); // 输出解析后的 JSON 数据到控制台
+                    // 可以将响应数据显示在页面上或者进行其他操作
+                } else {
+                    // 请求失败
+                    console.error('Request failed with status:', xhr.status);
+                }
+            };
+
+            xhr.send(formData);
+        }
+    </script>
+
+</body>
+</html>
